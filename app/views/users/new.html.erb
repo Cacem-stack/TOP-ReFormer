@@ -1,0 +1,57 @@
+<%
+=begin%>
+  <h1>Rails ReFormer </h1>
+  <form action="/users" method="post" accept-charset="UTF-8" data-turbo="false">
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>"
+  >
+  <label for="username">Username:</label>
+  <input type="text" name="user[username]"><br>
+  <label for="email">Email:</label>
+  <input type="text" name="user[email]"><br>
+  <label for="Password">Password:</label>
+  <input type="text" name="user[password]"><br>
+  <input type="submit" value="Submit">
+</form>
+<%
+=end%>
+
+<%
+=begin%>
+<h1>Reails ReFormer</h1>
+
+<%= form_tag("/users", method: "post", "data-turbo": "true") do %>
+  <%= label_tag(:username, "Username") %>
+  <%= text_field_tag(:username) %>
+  <%= label_tag(:email, "Email") %>
+  <%= text_field_tag(:email) %>
+  <%= label_tag(:password, "Password") %>
+  <%= text_field_tag(:password) %>
+  <%= submit_tag("Submit") %>
+<% end %>
+<%
+=end%>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @user do |form| %>
+  <%= label_tag(:username, "Username") %>
+  <%= form.text_field(:username, placeholder: "u goes here", value: "test") %>
+  <%= label_tag(:email, "Email") %>
+  <%= form.text_field(:email, placeholder: "e goes here") %>
+  <%= label_tag(:password, "Password") %>
+  <%= form.text_field(:password, placeholder: "p goes here") %>
+  <%= form.submit "Submit" %>
+<% end %>
